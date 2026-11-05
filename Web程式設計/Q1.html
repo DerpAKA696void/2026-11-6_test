@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>第一題：新增書籍</title>
+    <script src="js/jquery-4.0.0.slim.min.js"></script>
+</head>
+<body>
+    書名：<input type="text" id="bkna"><button id="add">新增</button><br>
+    目前共計：<span id="bkcount">0</span>本書
+    <ul id="books"></ul>
+
+    <script>
+        $("#add").on("click", function () {
+            // 1. 取：取得書名，去掉前後空白
+            let name = $("#bkna").val().trim();
+
+            // 2. 擋空：沒有書名就停止
+            if (name == "") {
+                alert("書名不能空白");
+                return;
+            }
+
+            // 3. 擋重：逐本比對完整書名
+            let repeat = false;
+            $("#books li").each(function () {
+                if ($(this).text() == name) {
+                    repeat = true;
+                }
+            });
+            if (repeat) {
+                alert("書名不能重複");
+                return;
+            }
+
+            // 4. 加：建立一個項目，放入書名，再加進清單
+            $("#books").append($("<li>").text(name));
+
+            // 5. 數：清單有幾個項目，就是幾本書
+            $("#bkcount").text($("#books li").length);
+        });
+    </script>
+</body>
+</html>

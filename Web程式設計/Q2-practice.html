@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>第二題優先練習：表格刪除（非正式考題確認）</title>
+    <script src="js/jquery-4.0.0.slim.min.js"></script>
+    <style>table { border-collapse: collapse; } th, td { border: 1px solid black; padding: 6px; }</style>
+</head>
+<body>
+    <button id="clear">清除所有資料</button>
+    <table>
+        <thead><tr><th>姓名</th><th>年齡</th><th>功能</th></tr></thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        let X = [{Name: "王一", Age: 30}, {Name: "王二", Age: 40}];
+
+        // 陣列每一筆，變成表格一列
+        for (let i = 0; i < X.length; i++) {
+            $("tbody").append(
+                "<tr><td>" + X[i].Name + "</td><td>" + X[i].Age +
+                "</td><td><button class='del'>刪除</button></td></tr>"
+            );
+        }
+
+        // 按鈕往上找最近的 tr，把整列刪掉
+        $("tbody").on("click", ".del", function () {
+            $(this).closest("tr").remove();
+        });
+
+        // 只清空資料區，thead 標題仍在
+        $("#clear").on("click", function () {
+            $("tbody").empty();
+        });
+    </script>
+</body>
+</html>
