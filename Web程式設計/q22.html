@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>第二題優先練習：表格刪除</title>
+    <script src="js/jquery-4.0.0.slim.min.js"></script>
+    <style>table { border-collapse: collapse; } th, td { border: 1px solid black; padding: 6px; }</style>
+</head>
+<body>
+    <button id="clear">清除所有資料</button>
+    <table>
+        <thead><tr><th>姓名</th><th>年齡</th><th>功能</th></tr></thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        const X = [{Name: "王一", Age: 30}, {Name: "王二", Age: 40}];
+
+        // 1. 利用 .map() 與模板字串一次產生 HTML，再塞入 tbody
+        const rows = X.map(item => `
+            <tr>
+                <td>${item.Name}</td>
+                <td>${item.Age}</td>
+                <td><button class='del'>刪除</button></td>
+            </tr>
+        `).join('');
+        $("tbody").html(rows);
+
+        // 2. 刪除單列
+        $("tbody").on("click", ".del", function () {
+            $(this).closest("tr").remove();
+        });
+
+        // 3. 清空資料
+        $("#clear").on("click", () => $("tbody").empty());
+    </script>
+</body>
+</html>
