@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>第一題：新增書籍</title>
+    <script src="js/jquery-4.0.0.slim.min.js"></script>
+</head>
+<body>
+    書名：<input type="text" id="bkna"><button id="add">新增</button><br>
+    目前共計：<span id="bkcount">0</span>本書
+    <ul id="books"></ul>
+
+    <script>
+        $("#add").on("click", function () {
+            let name = $("#bkna").val().trim();
+
+            if (!name) return alert("書名不能空白");
+            
+            // 檢查是否重複（利用 .filter() 找找看有沒有文字完全相符的 li）
+            if ($("#books li").filter((_, el) => $(el).text() === name).length) {
+                return alert("書名不能重複");
+            }
+
+            // 新增項目並直接更新計數
+            $("#books").append(`<li>${name}</li>`);
+            $("#bkcount").text($("#books li").length);
+        });
+    </script>
+</body>
+</html>
